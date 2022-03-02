@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <PackageId>AppMetrics.Grpc.AspNetCore</PackageId>
 	<PackageVersion>1.0.1</PackageVersion>
@@ -24,6 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-	<None Include="../README.md" Pack="true" PackagePath="\"/>
+	<None Include="../README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>
