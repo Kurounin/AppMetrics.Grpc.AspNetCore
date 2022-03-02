@@ -1,4 +1,4 @@
-name: Build And Pack
+name: build
 
 on:
   push:

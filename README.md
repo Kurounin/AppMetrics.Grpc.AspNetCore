@@ -2,7 +2,7 @@
 
 ![Build status](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/actions/workflows/BuildAndPack.yml/badge.svg)
 [![NuGet](https://img.shields.io/nuget/v/AppMetrics.Grpc.AspNetCore.svg)](https://www.nuget.org/packages/AppMetrics.Grpc.AspNetCore/)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/Kurounin/AppMetrics.Grpc.AspNetCore.svg)](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/blob/main/LICENSE)
 
 
 Provides an interceptor that can be used to track [protobuf-net.Grpc.AspNetCore](https://www.nuget.org/packages/protobuf-net.Grpc.AspNetCore) endpoint calls using [App.Metrics.AspNetCore.Tracking](https://www.nuget.org/packages/App.Metrics.AspNetCore.Tracking/) middleware components.
@@ -85,4 +85,4 @@ By default the `MetricsServer` will listen on port **5501** on all interfaces.
 
 
 ## License
-AppMetrics.Grpc.AspNetCore is [MIT-licensed](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/blob/main/LICENSE).
+The source code and documentation in this project are released under the [MIT License](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/blob/main/LICENSE).
