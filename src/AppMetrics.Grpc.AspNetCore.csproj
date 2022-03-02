@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
     <PackageId>AppMetrics.Grpc.AspNetCore</PackageId>
-	<PackageVersion>1.0.0</PackageVersion>
+	<PackageVersion>1.0.1</PackageVersion>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>appmetrics;aspnetcore;metrics;gRPC</PackageTags>
 	<Authors>Kurounin</Authors>
