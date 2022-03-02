@@ -7,6 +7,8 @@
 	<PackageVersion>1.0.1</PackageVersion>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>appmetrics;aspnetcore;metrics;gRPC</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	<Authors>Kurounin</Authors>
 	<RepositoryUrl>https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore</RepositoryUrl>
     <Description>Provides an interceptor that can be used to track [protobuf-net.Grpc.AspNetCore] endpoint calls using [App.Metrics.AspNetCore.Tracking] middleware components</Description>
