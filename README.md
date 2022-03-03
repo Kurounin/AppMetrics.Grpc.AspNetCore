@@ -83,6 +83,8 @@ Optionally add the following configuration to your `appsettings.json`
 
 By default the `MetricsServer` will listen on port **5501** on all interfaces.
 
+## Grafana
+The following dashboard can be used to view the exported metrics in Grafana: https://grafana.com/grafana/dashboards/15840
 
 ## License
 The source code and documentation in this project are released under the [MIT License](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/blob/main/LICENSE).
