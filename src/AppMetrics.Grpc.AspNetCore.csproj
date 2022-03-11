@@ -2,14 +2,12 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
+	<LangVersion>Latest</LangVersion>
     <Nullable>enable</Nullable>
-    <PackageId>AppMetrics.Grpc.AspNetCore</PackageId>
-	<PackageVersion>1.0.2</PackageVersion>
+	<PackageId>AppMetrics.Grpc.AspNetCore</PackageId>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>appmetrics;aspnetcore;metrics;gRPC</PackageTags>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-    <Description>Provides an interceptor that can be used to track [protobuf-net.Grpc.AspNetCore] endpoint calls using [App.Metrics.AspNetCore.Tracking] middleware components</Description>
-	<Authors>Kurounin</Authors>
 	<RepositoryUrl>https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore.git</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -19,6 +17,9 @@
 	<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Description>Provides an interceptor that can be used to track [protobuf-net.Grpc.AspNetCore] or [Grpc.AspNetCore] endpoint calls using [App.Metrics.AspNetCore.Tracking] middleware components</Description>
+	<Version>1.0.2</Version>
+	<Authors>Kurounin</Authors>
   </PropertyGroup>
 
   <!-- Allow debugging using Source Link https://github.com/dotnet/sourcelink -->
