@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/github/license/Kurounin/AppMetrics.Grpc.AspNetCore.svg)](https://github.com/Kurounin/AppMetrics.Grpc.AspNetCore/blob/main/LICENSE)
 
 
-Provides an interceptor that can be used to track [protobuf-net.Grpc.AspNetCore](https://www.nuget.org/packages/protobuf-net.Grpc.AspNetCore) endpoint calls using [App.Metrics.AspNetCore.Tracking](https://www.nuget.org/packages/App.Metrics.AspNetCore.Tracking/) middleware components.
+Provides an interceptor that can be used to track [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) and [protobuf-net.Grpc.AspNetCore](https://www.nuget.org/packages/protobuf-net.Grpc.AspNetCore) endpoint calls using [App.Metrics.AspNetCore.Tracking](https://www.nuget.org/packages/App.Metrics.AspNetCore.Tracking/) middleware components.
 
 A standalone `MetricsServer` is provided to help expose the metrics on a separate port.
 
@@ -15,7 +15,22 @@ Add the package to your application using
 dotnet add package AppMetrics.Grpc.AspNetCore
 ```
 
-## Usage
+## Usage with [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore)
+Add interceptor when enabling gRPC:
+```c#
+using AppMetrics.Grpc.AspNetCore.Interceptors;
+
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddGrpc(config =>
+    {
+        config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
+        config.Interceptors.Add<MetricsInterceptor>();
+    });
+}
+```
+
+## Usage with [protobuf-net.Grpc.AspNetCore](https://www.nuget.org/packages/protobuf-net.Grpc.AspNetCore)
 Add interceptor when registering code-first services:
 ```c#
 using AppMetrics.Grpc.AspNetCore.Interceptors;
@@ -30,6 +45,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
+## Usage of standalone MetricsServer
 To expose metrics on a different port using the `MetricsServer` call `AddMetricsServer` either on a `IHostBuilder` or a `IWebHostBuilder` and pass the same `IMetricsRoot` instance used in the main host:
 ```c#
 using AppMetrics.Grpc.AspNetCore.HostedServices;
@@ -70,7 +86,7 @@ public class Program
 }
 ```
 
-## Configuration
+### Configuration
 Optionally add the following configuration to your `appsettings.json`
 ```json
 "MetricsServerOptions": {

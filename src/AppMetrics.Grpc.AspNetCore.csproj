@@ -17,7 +17,7 @@
 	<!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Description>Provides an interceptor that can be used to track [protobuf-net.Grpc.AspNetCore] or [Grpc.AspNetCore] endpoint calls using [App.Metrics.AspNetCore.Tracking] middleware components</Description>
+    <Description>Provides an interceptor that can be used to track [Grpc.AspNetCore] and [protobuf-net.Grpc.AspNetCore] endpoint calls using [App.Metrics.AspNetCore.Tracking] middleware components</Description>
 	<Version>1.0.2</Version>
 	<Authors>Kurounin</Authors>
   </PropertyGroup>
