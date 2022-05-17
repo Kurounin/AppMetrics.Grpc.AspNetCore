@@ -16,6 +16,7 @@ namespace AppMetrics.Grpc.AspNetCore.Interceptors {
     {
         private static readonly Dictionary<string, bool> _routesIgnoreStatus = new Dictionary<string, bool>();
         private readonly IReadOnlyList<Regex> _ignoredRoutesRegex;
+        internal const string MetricsOriginalStatusCode = "AppMetrics.Grpc.AspNetCore_OriginalStatusCode";
 
         public MetricsInterceptor(IOptions<MetricsWebTrackingOptions> trackingMiddlewareOptionsAccessor, IMetrics metrics)
         {
@@ -178,7 +179,10 @@ namespace AppMetrics.Grpc.AspNetCore.Interceptors {
                 }
             }
 
-            context.GetHttpContext().Response.StatusCode = statusCode;
+            var httpContext = context.GetHttpContext();
+            
+            httpContext.Items[MetricsOriginalStatusCode] = httpContext.Response.StatusCode;
+            httpContext.Response.StatusCode = statusCode;
         }
     }
 }

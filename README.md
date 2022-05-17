@@ -15,47 +15,27 @@ Add the package to your application using
 dotnet add package AppMetrics.Grpc.AspNetCore
 ```
 
-## Usage with [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore)
-Add interceptor when enabling gRPC:
+## Usage with Minimal APIs
+Add grpc metrics before http metrics:
 ```c#
-using AppMetrics.Grpc.AspNetCore.Interceptors;
+using AppMetrics.Grpc.AspNetCore;
 
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddGrpc(config =>
-    {
-        config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
-        config.Interceptors.Add<MetricsInterceptor>();
-    });
-}
+var builder = WebApplication.CreateBuilder(args);
+
+var metrics = App.Metrics.AppMetrics.CreateDefaultBuilder()
+    .OutputMetrics.AsPrometheusPlainText()
+    .Build();
+
+builder.WebHost
+    .ConfigureMetrics(metrics)
+    .UseGrpcMetrics()
+    .UseMetrics();
 ```
 
-## Usage with [protobuf-net.Grpc.AspNetCore](https://www.nuget.org/packages/protobuf-net.Grpc.AspNetCore)
-Add interceptor when registering code-first services:
+## Usage without Minimal APIs
+Add grpc metrics before http metrics:
 ```c#
-using AppMetrics.Grpc.AspNetCore.Interceptors;
-
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddCodeFirstGrpc(config =>
-    {
-        config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
-        config.Interceptors.Add<MetricsInterceptor>();
-    });
-}
-```
-
-## Usage of standalone MetricsServer
-To expose metrics on a different port using the `MetricsServer` call `AddMetricsServer` either on a `IHostBuilder` or a `IWebHostBuilder` and pass the same `IMetricsRoot` instance used in the main host:
-```c#
-using AppMetrics.Grpc.AspNetCore.HostedServices;
-using App.Metrics;
-using App.Metrics.AspNetCore;
-using App.Metrics.Formatters.Json;
-using App.Metrics.Formatters.Prometheus;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using System.Linq;
+using AppMetrics.Grpc.AspNetCore;
 
 public class Program
 {
@@ -71,19 +51,29 @@ public class Program
 
         return Host.CreateDefaultBuilder(args)
             .ConfigureMetrics(metrics)
+            .UseGrpcMetrics()
             .UseMetrics()
-            .AddMetricsServer(metrics, endpointsOptions =>
-            {
-                endpointsOptions.MetricsEndpointOutputFormatter = metrics.OutputMetricsFormatters.OfType<MetricsJsonOutputFormatter>().First();
-                endpointsOptions.MetricsTextEndpointOutputFormatter = metrics.OutputMetricsFormatters.OfType<MetricsPrometheusTextOutputFormatter>().First();
-                endpointsOptions.EnvironmentInfoEndpointEnabled = false;
-            })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
             });
     }
 }
+```
+
+## Usage of standalone MetricsServer
+To expose metrics on a different port using the `MetricsServer` call `AddMetricsServer` either on a `IHostBuilder` or a `IWebHostBuilder` and pass the same `IMetricsRoot` instance used in the main host:
+```c#
+builder.WebHost
+    .ConfigureMetrics(metrics)
+    .UseGrpcMetrics()
+    .UseMetrics()
+    .AddMetricsServer(metrics, endpointsOptions =>
+    {
+        endpointsOptions.MetricsEndpointOutputFormatter = metrics.OutputMetricsFormatters.OfType<MetricsJsonOutputFormatter>().First();
+        endpointsOptions.MetricsTextEndpointOutputFormatter = metrics.OutputMetricsFormatters.OfType<MetricsPrometheusTextOutputFormatter>().First();
+        endpointsOptions.EnvironmentInfoEndpointEnabled = false;
+    });
 ```
 
 ### Configuration

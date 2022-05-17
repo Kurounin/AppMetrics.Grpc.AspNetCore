@@ -18,7 +18,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Description>Provides an interceptor that can be used to track [Grpc.AspNetCore] and [protobuf-net.Grpc.AspNetCore] endpoint calls using [App.Metrics.AspNetCore.Tracking] middleware components</Description>
-	<Version>1.0.2</Version>
+	<Version>2.0.0</Version>
 	<Authors>Kurounin</Authors>
   </PropertyGroup>
 
