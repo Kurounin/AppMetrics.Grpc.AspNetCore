@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AppMetrics.Grpc.AspNetCore.Interceptors {
 
     public class MetricsInterceptor : Interceptor
     {
-        private static readonly Dictionary<string, bool> _routesIgnoreStatus = new Dictionary<string, bool>();
+        private static Dictionary<string, bool> _routesIgnoreStatus = new Dictionary<string, bool>();
         private readonly IReadOnlyList<Regex> _ignoredRoutesRegex;
         internal const string MetricsOriginalStatusCode = "AppMetrics.Grpc.AspNetCore_OriginalStatusCode";
 
@@ -108,7 +109,10 @@ namespace AppMetrics.Grpc.AspNetCore.Interceptors {
             {
                 var isRouteIgnored = _ignoredRoutesRegex.Any(ignorePattern => ignorePattern.IsMatch(url));
 
-                _routesIgnoreStatus[url] = isRouteIgnored;
+                var routesIgnoreStatus = new Dictionary<string, bool>(_routesIgnoreStatus);
+                routesIgnoreStatus[url] = isRouteIgnored;
+
+                Interlocked.Exchange(ref _routesIgnoreStatus, routesIgnoreStatus);
 
                 return isRouteIgnored;
             }
